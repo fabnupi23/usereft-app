@@ -1,11 +1,10 @@
 import React from 'react'
+import { FocusApp } from './FocusApp';
 
 function App() {
   return (
     <div>
-      <h1>
-        App
-      </h1>
+      <FocusApp/>
     </div>
   )
 }

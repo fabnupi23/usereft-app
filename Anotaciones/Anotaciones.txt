@@ -22,3 +22,92 @@ nueva renderización y se veran algunos casos puntuales en los que nos podria se
 *Haremos un contador de renderizaciones y acá veremos el por que el useRef puede ser nuestra alternativa mas útil (Render Count).
 *Luego veremos un pequeño problema cuando ejecutamos acciones asyncornas como hacer una petición a la API en un componente que se carga condicionalmente y como el useRef nos puede ayudar
  a solucionar el problema del set de estados en objetos desmontados (Loading App).
+
+ ____________________________________________________________________________________________________________________________________________________________________________________________________
+
+ *Recordemos que el useRef tiene dos usos, el primero es la interacción con el DOM y el segundo es ser una referencia mutable, mejor dicho una variable que mantendra
+ su estado entre renderizaciones pero que cuando cambie su estado o mute no generara un nuevo render.
+
+ *Primera parte va a ser la interacción con el DOM, para nuestro primer ejemplo vamos a asignar el foco a un input mediante click en un botón.
+
+ *Para enlazar un useState con un input lo que debemos hacer son 2 cosas, la primera es asignar el value del input al valor que haya en el estado text, la segunda parte 
+  del enlace es controlar el onChange, para hacerlo le pasarmos un arrowFunction que como es llamada de un evento se inyecta el evento automaticamente y cuando cambie el
+  input vamos a cambiar lo que hay en el estado lo cual se almacena en e.target.value así accedemos al valor del input:
+    
+        function FocusApp() {
+            const [text, setText] = useState("");
+        return (
+            <div>
+                <input 
+                    type="text"
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                />
+                <button>Focus</button>
+            </div>
+        )
+        }
+
+*Ahora para controlar el foco que cuando se de click en el boton inmediatamente se haga foco en el input, para esto le asignamos el evento onClick  al boton y dentro del
+ evento le asignamos la fucnión handlefocus:
+
+        const handleFocus = () => {
+                const input = document.getElementById("input");
+                //console.log(input.value);
+                //input.value = "Texto mutado";
+            }
+
+        return (
+            <div>
+                <input 
+                    id="input"
+                    type="text"
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                />
+                <button onClick={handleFocus}>Focus</button>
+            </div>
+
+* Incluso podemos llamar eventos del DOM usando la referencia del input:
+
+        function FocusApp() {
+            const [text, setText] = useState("");
+
+            const handleFocus = () => {
+                const input = document.getElementById("input");
+                //console.log(input.value);
+                //input.value = "Texto mutado";
+                input.focus();
+        }
+
+
+*El problema de utilizar los id para este caso y el problema es que necesitamos asegurarnos de que cada elemento tiene un identificador unico lo que era muy sencillo 
+ cuando las aplicaciones las realizaba un solo desarrollador pero a medida que fue avanzando la web y las aplicaciones multiples desarrolladores trabajaban en un mismo
+ proyecto a la vez e incluso utilizaban librerias de terceros hechas por desarrolladores que no conocian lo que complicaba mucho que el id fuera unico y la solución que se hacia
+ para esto es que el id fuera un poco extraño, se intentaba realizar algún tipo de hash, que por ejemplo los inputs tuvieran un caracter aleatorio o generado de alguna forma 
+ seguido de algunos guiones y seguido del nombre que tenia anteriormente el input y para ello React nos trae una herramienta que nos va a solucionar este inconveniente 
+ que son las referencias mutables y vamos a ver como las podemos utilizar.
+
+ *Para inicializar una referencia el nombre de la variable va terminado en Ref como una conveniencia para saber en todo momento  para saber que estamos tratando con una 
+  referencia mutable 
+
+  
+                const handleFocus = () => {
+                    console.log(inputRef);
+                    //const input = document.getElementById("input");
+                    //console.log(input.value);
+                    //input.value = "Texto mutado";
+                    //input.focus();
+                }
+
+            return (
+                <div>
+                    <input 
+                        ref={inputRef}
+                        //id="input"
+                        type="text"
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                    />
+                    <button onClick={handleFocus}>Focus</button>
+                </div>
