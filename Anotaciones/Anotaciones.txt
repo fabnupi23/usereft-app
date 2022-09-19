@@ -1,0 +1,24 @@
+UseRef al detalle
+
+Tiene basicamente dos usos, uno es la interacción con el DOM real, como es sabido todo lo que hacemos en React tiene una interacción con el virtual DOM y esos resultados se renderizan
+después en el DOM real, pero React nos ofrece una opción para interactuar directamente con el DOM sin pasar por ese DOM virtual y eso es el useRef.
+
+*________Interacción con el DOOM (Real)________*
+*Vamos a crear una aplicación que al hacer click en un boton, coloque el foco en un input mediante las referencias (Focus).
+*En otro ejemplo vamos a hacer algo muy similar  con un input y un botón pero esta vez al dar click vamos a copiar el texto que este en dicho input, lo copiaremos al portapapeles
+ para poder pegarlo en otro sitio (Copy).
+*Luego vamos a manejar un Media Player, basicamente se va a insertar un video con el elemento por defecto de Html y vamos a manejar los controles de reproducción y pausa utilizaremos el useRef
+ para crear una referencia al video y poder acceder a sus propiedades que nos permite hacer esto (Media Player).
+
+* También vamos a hacer animaciones de scroll, es un uso muy común que al bajar o subír de la pantalla hayan cambios ya sean en el menú o los elementos que se van mostrando 
+ en una aplicación, y esto nos servira no solo para manejar los eventos de Scroll sino que podremos aplicarlo para cualquier otro evento como por ejemplo el moviemiento del
+ mouse(Scroll Animation).
+
+*________REFERENCIA MUTABLE________*
+Luego de esto vamos a ver el useRef como una referencia mutable, ¿Que es una referencia mutable?, es básicamente una variable, por así decirlo, que vamos a tener en React cuyo valor va a ser
+persistente  lo largo de los renders que van ocurriendo cada vez que se pinta el componente, pero con la diferencia a los estados que cuando estas variables cambian su valor no causa una 
+nueva renderización y se veran algunos casos puntuales en los que nos podria ser útil, pueden que hayan mas casos siempre que la aplicación lo nesecite.
+
+*Haremos un contador de renderizaciones y acá veremos el por que el useRef puede ser nuestra alternativa mas útil (Render Count).
+*Luego veremos un pequeño problema cuando ejecutamos acciones asyncornas como hacer una petición a la API en un componente que se carga condicionalmente y como el useRef nos puede ayudar
+ a solucionar el problema del set de estados en objetos desmontados (Loading App).
